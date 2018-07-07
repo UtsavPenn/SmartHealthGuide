@@ -3,7 +3,7 @@
 class SensorData:
     sleep = None
     activity = None
-    heartRate = None
+    heart_rate = None
 
     def get_data(self):
         pass

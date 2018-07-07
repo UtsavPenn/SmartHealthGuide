@@ -1,9 +1,10 @@
 import json
+import suggestions_manager;
 
 
 def suggestions(event, context):
     body = {
-        "message": "Sport & Health located 2 miles away. Suggestion based on your activity data",
+        "message": suggestions_manager.get_suggestions_list(),
         "input": event
     }
 
@@ -16,18 +17,12 @@ def suggestions(event, context):
 
 
 def test_func():
-    print("it works")
+    sugg_list = []
+    sugg_list = suggestions_manager.get_suggestions_list()
+    print(sugg_list)
+    return sugg_list
 
 
 
 
 
-
-    # Use this code if you don't use the http event with the LAMBDA-PROXY
-    # integration
-    """
-    return {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "event": event
-    }
-    """
