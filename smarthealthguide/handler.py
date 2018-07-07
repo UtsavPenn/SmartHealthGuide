@@ -1,9 +1,9 @@
 import json
 
 
-def hello(event, context):
+def suggestions(event, context):
     body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!!",
+        "message": "Sport & Health located 2 miles away. Suggestion based on your activity data",
         "input": event
     }
 
@@ -13,6 +13,15 @@ def hello(event, context):
     }
 
     return response
+
+
+def test_func():
+    print("it works")
+
+
+
+
+
 
     # Use this code if you don't use the http event with the LAMBDA-PROXY
     # integration
