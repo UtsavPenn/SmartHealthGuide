@@ -1,7 +1,5 @@
-import handler
-import api_data_collector as api
 import suggestions_manager as sug_man
-import entities
+
 
 def main():
     #handler.test_func()

@@ -1,5 +1,5 @@
-
 import api_data_collector as api
+
 
 class SensorData:
     sleep = None
@@ -27,6 +27,7 @@ class Suggestion:
     categories = None
     discount = None
     icon = None
+    metric = None
 
     def get_data(self):
         pass
@@ -37,6 +38,7 @@ class Place:
     long = None
     name = None
     icon = None
+    metric = None
 
 
     def get_data(self,textquery):
