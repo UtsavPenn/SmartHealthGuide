@@ -16,7 +16,7 @@ Fitness 3
 Water Intake 4
 
 '''
-place_types = [['matress store','meditation centre'],[],['gym'],[]]
+place_types = [['sleep therapy'],['meal plan service'],['sport and health']]
 suggested_place_types = []
 suggested_places = []
 user_details = entities.UserData()
@@ -31,7 +31,7 @@ def get_suggestions_list():
     sg = entities.Suggestion()
 
     suggested_place_types_set = get_suggested_place_types()
-
+    print(len(suggested_place_types_set))
 
     for suggested_place_type in suggested_place_types_set:
         get_suggested_places_by_category(suggested_place_type)
@@ -59,32 +59,32 @@ def calculate_dist(lat, lng):
     return distance
 
 def get_user_details(fitbitdata):
-    print (fitbitdata)
-
-    user_details.age = 28
-    user_details.height = 65
-    user_details.weight = 160
-    '''
     user_details.age = fitbitdata[0]
     user_details.height = fitbitdata[1]
     user_details.weight = fitbitdata[2]
     '''
+    user_details.age = 28
+    user_details.height = 65
+    user_details.weight = 190
+    '''
 
 def get_average_sensor_data(fitbitdata):
-
-    sensor_data.activity = 2000
-    sensor_data.sleep = 8
+    '''
+    sensor_data.activity = 2200
+    sensor_data.sleep = 11
     sensor_data.heart_rate = 70
     '''
-    sensor_data.activity = fitbitdata[6]
-    sensor_data.sleep = fitbitdata[5]
-    sensor_data.heart_rate = fitbitdata[4]
-    '''
+    sensor_data.activity = fitbitdata[5]
+    sensor_data.sleep = fitbitdata[4]
+    sensor_data.heart_rate = fitbitdata[3]
+
 
 def get_suggested_place_types():
-    fitbitdata = [0] * 7
-    #fitbitdata = fitbit_data.get_fit_bit_data()
+    #fitbitdata = [0] * 7
+    fitbitdata = fitbit_data.get_fit_bit_data()
+    print ("Prinoting data from fitbtweb api")
     print(fitbitdata)
+
     get_user_details(fitbitdata)
     get_average_sensor_data(fitbitdata)
     sleep_score = commons.sleep_score(user_details.age, sensor_data.sleep)
@@ -111,12 +111,24 @@ def get_suggested_place_types():
         suggested_place_types.append(3)
 
     suggested_place_types_set = list(set(suggested_place_types))
-    print(sensor_data.activity)
+
+
     print(len(suggested_place_types_set))
     return suggested_place_types_set
 
 
 def get_suggested_places_by_category(sugg_recom_cat):
+    if sugg_recom_cat == 4:
+        print("utsav")
+        place = entities.Place()
+        place.name = "AquaSana"
+        place.icon = "https://visualpharm.com/assets/472/Water-595b40b65ba036ed117d2756.svg"
+        place.lat = "38.88"
+        place.long = "-76.99"
+        place.metric = 3
+        suggested_places.append(place)
+        return
+
     for text_query in place_types[sugg_recom_cat - 1]:
         api_data = api.get_place_details(text_query)
         for result in api_data['results']:

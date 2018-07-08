@@ -19,7 +19,8 @@ service: smarthealthguide
 
 
     
-
+defaults:
+  timeout: 30
 
 provider:
   name: aws
