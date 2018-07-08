@@ -31,3 +31,8 @@ def get_activity_data(url):
 
 def get_heart_rate(url):
     pass
+
+def get_place_distance(latlng):
+    url = "https://maps.googleapis.com/maps/api/distancematrix/json?key=AIzaSyB5VWqn2rvzCE-5V5HEn_rJnd3xkfGj0YU&origins=38.904513,-77.197910&destinations={}".format(latlng)
+    return get_request_data(url)['rows']['elements']['distance']['text']
+
