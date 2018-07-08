@@ -5,7 +5,7 @@ import api_data_collector as api
 import commons
 from math import sin, cos, sqrt
 import random
-#import fitbit_data
+import fitbit_data
 
 
 '''
@@ -23,13 +23,12 @@ user_details = entities.UserData()
 sensor_data = entities.SensorData()
 user_lat = 38.882066
 user_long = -76.994269
-fitbitdata = []
+
 
 
 def get_suggestions_list():
     suggestions_list =[]
     sg = entities.Suggestion()
-    #fitbitdata = fitbit_data.get_fit_bit_data()
 
     suggested_place_types_set = get_suggested_place_types()
 
@@ -64,29 +63,35 @@ def calculate_dist(user_lat, user_lng, lat, lng):
     distance = 3956.0 * c
     return distance
 
-def get_user_details():
+def get_user_details(fitbitdata):
+    print (fitbitdata)
+    '''
     user_details.age = 28
     user_details.height = 65
     user_details.weight = 160
     '''
-    user_details.age = fitbitdata['age']
-    user_details.height = fitbitdata['height']
-    user_details.weight = fitbitdata['weight']
-    '''
+    user_details.age = fitbitdata[0]
+    user_details.height = fitbitdata[1]
+    user_details.weight = fitbitdata[2]
 
-def get_average_sensor_data():
+
+def get_average_sensor_data(fitbitdata):
+    '''
     sensor_data.activity = 2000
     sensor_data.sleep = 8
     sensor_data.heart_rate = 70
     '''
-    sensor_data.activity = fitbitdata['calories']
-    sensor_data.sleep = fitbitdata['sleepHrs']
-    sensor_data.heart_rate = fitbitdata['heartRate']
-    '''
+    sensor_data.activity = fitbitdata[6]
+    sensor_data.sleep = fitbitdata[5]
+    sensor_data.heart_rate = fitbitdata[4]
+
 
 def get_suggested_place_types():
-    get_user_details()
-    get_average_sensor_data()
+    fitbitdata = [0] * 7
+    fitbitdata = fitbit_data.get_fit_bit_data()
+    print(fitbitdata)
+    get_user_details(fitbitdata)
+    get_average_sensor_data(fitbitdata)
     sleep_score = commons.sleep_score(user_details.age, sensor_data.sleep)
 
     weight_score = commons.weight_score(user_details.weight,user_details.height)
