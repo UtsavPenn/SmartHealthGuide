@@ -41,8 +41,7 @@ def get_suggestions_list():
         sg.name = suggested_place.name
         sg.icon = suggested_place.icon
 
-        sg.distance = str(round(calculate_dist(user_lat,user_long, float(suggested_place.lat),
-                                               float(suggested_place.long)),2))
+	sg.distance = str(round((float(api.get_place_distance(suggested_place.lat + "," + suggested_place.long))/1.6),2))
         sg.discount = random.randint(1,10)*5
         sg.metric = suggested_place.metric
         suggestions_list.append(sg)
