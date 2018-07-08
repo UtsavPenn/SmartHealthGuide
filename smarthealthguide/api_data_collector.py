@@ -13,7 +13,7 @@ def get_request_data(url, headers=None):
 
 def get_place_details(textquery):
     #placeid = get_palace_id(textquery)
-    url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyD-3egv6QjDN_H-oGpqqCs7aMaCDf1OuB8&location=38.904513,-77.197910&radius=15000&query={}".format(textquery)
+    url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyD-3egv6QjDN_H-oGpqqCs7aMaCDf1OuB8&location=38.904513,-77.197910&radius=2000&query={}".format(textquery)
     return get_request_data(url)
 
 def get_palace_id(textquery):
