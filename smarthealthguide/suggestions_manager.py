@@ -41,7 +41,7 @@ def get_suggestions_list():
         sg.name = suggested_place.name
         sg.icon = suggested_place.icon
 
-	sg.distance = str(round((float(api.get_place_distance(suggested_place.lat + "," + suggested_place.long))/1.6),2))
+        sg.distance = str(calculate_dist(suggested_place.lat, suggested_place.long))
         sg.discount = random.randint(1,10)*5
         sg.metric = suggested_place.metric
         suggestions_list.append(sg)
@@ -52,19 +52,15 @@ def get_suggestions_list():
     print(json_list)
     return json_list
 
-def calculate_dist(user_lat, user_lng, lat, lng):
-    dlon = lng - user_lng
-    dlat = lat - user_lat
-
-    a = sin(dlat / 2) ** 2 + cos(user_lat) * cos(lat) * sin(dlon / 2) ** 2
-    c = 2 * a*sin(sqrt(a))
-
-    distance = 3956.0 * c
+def calculate_dist(lat, lng):
+    api_data = api.get_place_distance(lat, lng)
+    distance = float(api_data['rows'][0]['elements'][0]['distance']['value'])/1600
+    distance = round(distance,2)
     return distance
 
 def get_user_details(fitbitdata):
     print (fitbitdata)
-    '''
+
     user_details.age = 28
     user_details.height = 65
     user_details.weight = 160
@@ -72,10 +68,10 @@ def get_user_details(fitbitdata):
     user_details.age = fitbitdata[0]
     user_details.height = fitbitdata[1]
     user_details.weight = fitbitdata[2]
-
+    '''
 
 def get_average_sensor_data(fitbitdata):
-    '''
+
     sensor_data.activity = 2000
     sensor_data.sleep = 8
     sensor_data.heart_rate = 70
@@ -83,11 +79,11 @@ def get_average_sensor_data(fitbitdata):
     sensor_data.activity = fitbitdata[6]
     sensor_data.sleep = fitbitdata[5]
     sensor_data.heart_rate = fitbitdata[4]
-
+    '''
 
 def get_suggested_place_types():
     fitbitdata = [0] * 7
-    fitbitdata = fitbit_data.get_fit_bit_data()
+    #fitbitdata = fitbit_data.get_fit_bit_data()
     print(fitbitdata)
     get_user_details(fitbitdata)
     get_average_sensor_data(fitbitdata)
@@ -98,11 +94,11 @@ def get_suggested_place_types():
     heart_rate_score = commons.heart_rate_score(sensor_data.heart_rate)
 
     '''By default add fitness recommendation to all users'''
-    suggested_place_types.append(3)
+    #suggested_place_types.append(3)
 
     if weight_score == 3:
-        suggested_place_types.append(1)
         suggested_place_types.append(2)
+        suggested_place_types.append(3)
         suggested_place_types.append(4)
 
     if calorie_score == 3:
@@ -112,7 +108,7 @@ def get_suggested_place_types():
         suggested_place_types.append(1)
 
     if heart_rate_score == 2:
-        suggested_place_types.append(2)
+        suggested_place_types.append(3)
 
     suggested_place_types_set = list(set(suggested_place_types))
     print(sensor_data.activity)
