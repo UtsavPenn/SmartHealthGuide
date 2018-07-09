@@ -13,8 +13,8 @@ import datetime
 
 
 # Authentication
-USER_ID = "22D37F"
-CLIENT_SECRET = "4dbd95ded6b3e02160887deb8cc4f178"
+USER_ID = "xxxx"
+CLIENT_SECRET = "xxxxx"
 """for obtaining Access-token and Refresh-token"""
 
 #server = Oauth2.OAuth2Server(USER_ID, CLIENT_SECRET)
